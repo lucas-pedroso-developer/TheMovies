@@ -18,7 +18,8 @@ class MoviesViewController: UIViewController {
     var searchController: UISearchController!
     var searchActive : Bool = false
     var isFinalToLoad : Bool = false
-            
+    var vSpinner : UIView?
+                
     let service = PokedexService()
     
     @IBOutlet weak var moviesCollectionView: UICollectionView!
@@ -26,8 +27,7 @@ class MoviesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.showSpinner(show: true, onView: self.view)
-        self.getmovies(url: "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=&api-key=JBzDusoqkuiMuax3qUcGrQMZPR0Cc1Vs")
+        self.getmovies(url: "\(Constants.BASE_URL)\(Constants.API_KEY)")
     }
     
     func getmovies(url: String) {
@@ -49,7 +49,7 @@ class MoviesViewController: UIViewController {
             }
         }
     }
-            
+                
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

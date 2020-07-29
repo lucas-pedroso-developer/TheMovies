@@ -21,7 +21,7 @@ class MovieDetailViewController: UIViewController {
     var updatedIndexPaths: [IndexPath]!
     var stack = CoreDataStack.shared
     var fetchedResultsController: NSFetchedResultsController<FavoriteMovie>!
-            
+                    
     let handleFavoriteMovie = HandleFavoriteMovie()
         
     @IBOutlet weak var movieImage: UIImageView!
@@ -33,8 +33,7 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIButton!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        self.showSpinner(show: true, onView: self.view)
+        super.viewDidLoad()        
         self.fillFields()
         self.favoriteButton.layer.cornerRadius = self.view.frame.size.height*007/100/2
         self.loadAllFavoriteMovies()
@@ -79,6 +78,7 @@ class MovieDetailViewController: UIViewController {
     }
         
     private func loadAllFavoriteMovies() -> [FavoriteMovie]? {
+        self.showSpinner(show: true, onView: self.view)
         var favoriteMovie: [FavoriteMovie]?
         do {
             try favoriteMovie = handleFavoriteMovie.fetchAllFavoriteMovies(entityName: FavoriteMovie.name, viewContext: stack.viewContext)

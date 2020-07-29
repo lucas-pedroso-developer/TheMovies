@@ -24,26 +24,28 @@ class FavoriteMoviesViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.showSpinner(show: true, onView: self.view)
         self.loadAllFavoriteMovies()
         self.favoriteMoviesTableView.reloadData()
     }
     
     private func loadAllFavoriteMovies() {
+        self.showSpinner(show: true, onView: self.view)
         do {
             try favoriteMovie = handleFavoriteMovie.fetchAllFavoriteMovies(entityName: FavoriteMovie.name, viewContext: stack.viewContext)
                                     
             self.favoriteMoviesTableView.reloadData()
         } catch {
             self.showAlert(title: "Error", message: "Error to load data!")
-            self.showSpinner(show: false, onView: self.view)
         }
+        self.showSpinner(show: false, onView: self.view)
     }
     
     private func deleteFavoriteMovies(index: Int) -> Bool {
+        self.showSpinner(show: true, onView: self.view)
         do {
             return try handleFavoriteMovie.deleteFavoriteMovie(index: index, entityName: FavoriteMovie.name, viewContext: stack.viewContext)
         } catch {
+            self.showSpinner(show: false, onView: self.view)
             self.showAlert(title: "Error", message: "Error to load data!")
         }
         return false
